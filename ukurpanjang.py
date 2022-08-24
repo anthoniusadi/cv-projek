@@ -10,7 +10,7 @@ aruco_dict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_50)
 detector = HomogeneousBgDetector()
 
 
-img = cv2.imread('data/phone_aruco_marker.jpg')
+img = cv2.imread('program/data/phone_aruco_marker.jpg')
 
 corners,_,_ =cv2.aruco.detectMarkers(img,aruco_dict,parameters=parameters)
 print(corners)

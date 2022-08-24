@@ -1,6 +1,18 @@
 import cv2
 import numpy as np
 
+class preprocessing:
+    def __init__(self,img):
+        self.img= img
+    def blur(self,kernel_size,iterasi):
+        return cv2.GaussianBlur(self.img,(kernel_size,kernel_size),iterasi)
+        # return cv2.GaussianBlur(self.img,(kernel,kernel),iterasi)
+    def show(self):
+        return cv2.imshow("original",self.img)
+    def dilate(self,kernel_size,iterasi):
+        return cv2.dilate(self.img, kernel_size, iterations=iterasi)
+        
+
 def calc_foreground_percentage(img):
     pixel_black = cv2.countNonZero(img)
 
@@ -21,6 +33,7 @@ def thresholding(images,x,y):
     ret, thresh1 = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     inv_img = (255-thresh1)
     img_thresh = cv2.imshow('Binary Threshold', thresh1)
+
    
     pixel_black = cv2.countNonZero(thresh1)
     pixel_white = cv2.countNonZero(inv_img)
@@ -85,7 +98,7 @@ def detect(frame):
     return cx,cy,luas,edge,x,y,w,h
 def nothing(x):
     pass
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((3, 3), np.uint8)
 
 if __name__ == '__main__':
 
@@ -103,13 +116,17 @@ if __name__ == '__main__':
         global temp
         temp = []
         percent = 0
-
+        
 
         # _, frame = cap.read()
         # coba data 1 dan data 4
-        frame = cv2.imread('data/penggaris2.jpg')
+        frame = cv2.imread('program/data/data1.jpg')
+        # frame = cv2.resize(frame, (480, 320))
         copy_frame = frame.copy()
-        blur = cv2.GaussianBlur(frame,(9,9),5)
+        process = preprocessing(frame)
+        im = process.show()
+        # blur = cv2.GaussianBlur(frame,(7,7),5)
+        blur = process.blur(3,1)
         hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
 
         h_min = cv2.getTrackbarPos("H MIN", "HSV Value")
@@ -128,8 +145,10 @@ if __name__ == '__main__':
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
         result = cv2.bitwise_and(frame, frame, mask=mask)
-        dilation = cv2.dilate(result, kernel, iterations=4)
+        # dilation = process.dilate(kernel,2)
+        dilation = cv2.dilate(result, kernel, iterations=2)
         cx,cy ,luas,canny,x,y,w,h= detect(dilation)
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(255,25,0),3)
         # handle x dan y jika = 0
         if(y>1 and x> 1):
             crop_img = copy_frame[y:y+h, x:x+w]
@@ -139,7 +158,6 @@ if __name__ == '__main__':
             
 
         txt_percent = "percentage area : {}".format(percent)
-
         cv2.circle(frame,(cx,cy),5,(255,5,5),-1)
         # cv2.imshow('object',img_detection)
         print(f'keterangan X:{cx},Y:{cy},Luas_foreground:{luas},Luas_boundingBox :{cx*cy}')
@@ -152,7 +170,7 @@ if __name__ == '__main__':
         # cv2.imshow("Frame Mask", result)
         # cv2.imshow("Frame blur", canny)
         cv2.imshow("Frame dilation", dilation)
-
+        
 
 
         key = cv2.waitKey(1)
