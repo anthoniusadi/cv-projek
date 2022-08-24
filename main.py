@@ -3,7 +3,7 @@ from email.mime import image
 import re
 import cv2 
 import numpy as np
-import matplotlib as plt
+# import matplotlib as plt
 
 folder = 'data/'
 thresh =  20
