@@ -47,10 +47,9 @@ def thresholding(images):
     # pixel_black = cv2.countNonZero(thresh1)
     
 
-    print("Number of foreground pixels:")
-    print(foreground)
-    print("Number of background pixels:")
-    print(background)
+    print(f"Number of foreground pixels: {foreground}, background pixels: {background}")
+
+
     # h, w = images.shape()
     # luas_total = x*y
     luas = foreground+background
@@ -75,17 +74,17 @@ def detect(frame):
         # box =cv2.boxPoints(rect)
         # box = np.int0(box)
         # cv2.circle(frame,int(a),int(b),5,(0,0,255),-1)
-        print(f'nilai w {round(l,1)}, nilai p {round(p,1)},angle {angle}')
         # end
         x,y,w,h = cv2.boundingRect(c)
         # luas = (y-(y+h))*(x-(x+w))
         luas= w*h
+   
         # cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3)
         # temp.append(luas)
         # print(temp)
         # cv2.imshow('roi',roi)
     # cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3)
-        if(luas > 18000):
+        if(luas > 180):
             # print(f'koordinat : {x,y}, luasan : {w,h}, luas : {luas}' )
             M = cv2.moments(c)
             if M['m00'] != 0:
@@ -94,7 +93,7 @@ def detect(frame):
                 # cx3= int(M['m10'])
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
-                print(cx,cy)
+          
                 cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2) 
                 return cx,cy,luas,edge,x,y,w,h
                 
@@ -132,7 +131,7 @@ if __name__ == '__main__':
 
         # _, frame = cap.read()
         # coba data 1 dan data 4
-        frame = cv2.imread('data/data1.jpg')
+        frame = cv2.imread('data/distance34cm.jpg')
         # frame = cv2.resize(frame, (480, 320))
         copy_frame = frame.copy()
         process = preprocessing(frame)
@@ -172,8 +171,9 @@ if __name__ == '__main__':
         cv2.circle(frame,(cx,cy),5,(255,5,5),-1)
         # cv2.imshow('object',img_detection)
         # luas bounding box w/scale_factor dan H/scale_factor
-        luas_area = round((w/60)*(h/60),2)
-        print(f'center point X:{cx}, Y:{cy}, Luas_BBox:{luas}, Luas_boundingBox :{luas_area}cm^2')
+        luas_area = round((w)*(h),2)
+        print(f'1cmPersegi : {luas} atau {luas_area} ')
+        # print(f'center point X:{cx}, Y:{cy}, Luas_BBox:{luas}, Luas_boundingBox :{luas_area}cm^2')
         cv2.putText(frame, hsv_min, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
         cv2.putText(frame, hsv_max, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
         cv2.putText(frame,txt_percent,(10,110),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
