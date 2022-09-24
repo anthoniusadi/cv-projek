@@ -44,3 +44,5 @@ plt.xlabel('jarak (cm)')
 plt.ylabel('panjang pixel')
 plt.savefig('model_plot_persamaan.png')
 plt.show()
+
+

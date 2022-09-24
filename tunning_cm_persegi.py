@@ -58,7 +58,11 @@ def thresholding(images):
     print(f"Percentage of foreground in pixel:{percentage}%")
     return img_thresh,percentage
 
-
+def pixel_cm(jarak):
+    persamaan = ((0.09104895*(np.power(jarak,2))) + (-6.2577418*jarak) + 123.02010343130996)
+    print(persamaan)
+    return persamaan
+    
 def detect(frame):
     # global x,y,w,h
     # x,y,w,h = 0,0,0,0
@@ -127,11 +131,11 @@ if __name__ == '__main__':
         global temp
         temp = []
         percent = 0
-        
+        jarak_kamera = 25
 
         # _, frame = cap.read()
         # coba data 1 dan data 4
-        frame = cv2.imread('data/distance34cm.jpg')
+        frame = cv2.imread('data/distance25cm.jpg')
         # frame = cv2.resize(frame, (480, 320))
         copy_frame = frame.copy()
         process = preprocessing(frame)
@@ -170,14 +174,19 @@ if __name__ == '__main__':
         txt_percent = "percentage area : {} %".format(percent)
         cv2.circle(frame,(cx,cy),5,(255,5,5),-1)
         # cv2.imshow('object',img_detection)
+        # perhitungan pixwl_cm
+        ratio = pixel_cm(jarak_kamera)
         # luas bounding box w/scale_factor dan H/scale_factor
-        luas_area = round((w)*(h),2)
-        print(f'1cmPersegi : {luas} atau {luas_area} ')
+        luas_area = round((w/ratio)*(h/ratio),2)
+        luas_luka = round(((percent/100)*luas_area),2)
+        print(f'1cmPersegi : {luas_area} ')
         # print(f'center point X:{cx}, Y:{cy}, Luas_BBox:{luas}, Luas_boundingBox :{luas_area}cm^2')
         cv2.putText(frame, hsv_min, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
         cv2.putText(frame, hsv_max, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
         cv2.putText(frame,txt_percent,(10,110),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        cv2.putText(frame, f'luas area : {str(luas_area)} cm2', (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+        cv2.putText(frame, f'luas area BBox : {str(luas_area)} cm2', (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+        cv2.putText(frame, f'luas area luka : {str(luas_luka)} cm2', (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 1, (37, 55, 195), 2)
+        
         
 
         cv2.imshow("HSV Value", frame)
