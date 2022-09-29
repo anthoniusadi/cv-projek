@@ -27,8 +27,6 @@ for cnt in contur:
     (x,y),(w,h),angle=rect
     # print(x,y,w,h)
     # print(angle)
-    
-
     box = cv2.boxPoints(rect)
     box = np.int0(box)
     print(box)

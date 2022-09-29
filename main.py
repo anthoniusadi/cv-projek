@@ -102,17 +102,13 @@ def color_segmentation(image_path):
 
 def segment_fish(image):
     ''' Attempts to segment the clownfish out of the provided image '''
-
     # Convert the image into HSV
     hsv_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-
     # Set the orange range
     light_orange = (1, 190, 200)
     dark_orange = (18, 255, 255)
-
     # Apply the orange mask 
     mask = cv2.inRange(hsv_image, light_orange, dark_orange)
-
     # Set a white range
     light_white = (0, 0, 0)
     dark_white = (166, 60, 255)
@@ -133,12 +129,9 @@ if __name__ == '__main__':
     # color_segmentation(folder+'data3.jpg')
     im = cv2.imread(folder+'data1.jpg')
     hasil = segment_fish(im)
-
     # image = cv2.imread(folder+'data3.jpg')
-
     # filtered = max_rgb_filter(image)
     # recon_image = np.hstack([image, filtered])
-
     cv2.imshow('recon_image',hasil)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
