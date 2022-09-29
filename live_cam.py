@@ -1,14 +1,30 @@
 
+from unicodedata import name
 import cv2
 import numpy as np
-import segmentasi
-from segmentasi import nothing,thresholding,detect,calc_foreground_percentage
+from modules import detect,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
 cap =  cv2.VideoCapture(-1)
 
 
 kernel = np.ones((5, 5), np.uint8)
 
-
+if __name__ == '__main__':
+    # show frame original
+    
+    # press button
+    
+    # calcuate LIDAR (jarak)
+    
+    # save original image 
+    
+    # detect image from saved image
+    
+    # do tunning segmentation
+    
+    # calculate area
+    
+    # saved image with calcuate 
+    
 while True:
     global temp
     temp = []
