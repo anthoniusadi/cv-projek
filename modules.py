@@ -56,6 +56,8 @@ def thresholding(images):
     # percentage = round(percentage*100,2)
     print(f"Percentage of foreground in pixel:{percentage}%")
     return img_thresh,percentage
+def lidar():
+    pass
 
 def pixel_cm(jarak):
     persamaan = ((0.09104895*(np.power(jarak,2))) + (-6.2577418*jarak) + 123.02010343130996)
