@@ -37,7 +37,7 @@ def thresholding(images):
     thresh1 = cv2.erode(thresh1, kernel_th, iterations=1)
     
     size = np.size(img)
-    img_thresh = cv2.imshow('Binary Threshold', thresh1)
+    # img_thresh = cv2.imshow('Binary Threshold', thresh1)
     # img_inv = cv2.imshow('Binary invers', inv_img)
 
     #  0 = hitam 
@@ -55,7 +55,9 @@ def thresholding(images):
     percentage = round((foreground / luas)*100,2)
     # percentage = round(percentage*100,2)
     print(f"Percentage of foreground in pixel:{percentage}%")
-    return img_thresh,percentage
+    return thresh1,percentage
+    # return img_thresh,percentage
+
 def lidar():
     pass
 
