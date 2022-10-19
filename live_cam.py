@@ -3,6 +3,10 @@ import cv2
 import os
 import numpy as np
 from modules import detect, nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(19,GPIO.IN)
+
 cap =  cv2.VideoCapture(2)
 value = []
 status = True
@@ -31,6 +35,8 @@ if __name__ == '__main__':
         # jarak = lidar()
         # print(jarak)
         # press button (input jarak)
+        # if GPIO.input(19):
+        #   print('tombol ditekan)
         if cv2.waitKey(27) & 0xFF == ord('c'):
             cv2.namedWindow("HSV Value")
             cv2.createTrackbar("H MIN", "HSV Value", 0, 179, nothing)

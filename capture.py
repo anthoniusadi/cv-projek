@@ -1,3 +1,4 @@
+# test capture image dengan GPIO
 import cv2
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
