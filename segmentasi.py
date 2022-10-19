@@ -128,7 +128,6 @@ if __name__ == '__main__':
         global temp
         temp = []
         percent = 0
-        
 
         # _, frame = cap.read()
         # coba data 1 dan data 4

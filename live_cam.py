@@ -1,0 +1,124 @@
+
+from cgi import print_directory
+from genericpath import exists
+from unicodedata import name
+import cv2
+import os
+import numpy as np
+from modules import detect, nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
+cap =  cv2.VideoCapture(2)
+value = []
+status = True
+kernel = np.ones((5, 5), np.uint8)
+try :
+    folder = 'result'
+    exist = os.path.exists(folder)
+    if not exist:
+        os.makedirs(folder)
+        print('diretory created')
+except FileExistsError:
+    print('directory already exist')
+
+def nothing(x):
+    pass
+
+if __name__ == '__main__':
+
+    while True:
+        # show frame original
+        _, frame = cap.read()
+        copy_frame = frame.copy()
+        print('sucess')
+        cv2.imshow('original',frame)
+        # calcuate LIDAR (jarak)
+        # jarak = lidar()
+        # print(jarak)
+        # press button (input jarak)
+        if cv2.waitKey(27) & 0xFF == ord('c'):
+            cv2.namedWindow("HSV Value")
+            cv2.createTrackbar("H MIN", "HSV Value", 0, 179, nothing)
+            cv2.createTrackbar("S MIN", "HSV Value", 0, 255, nothing)
+            cv2.createTrackbar("V MIN", "HSV Value", 0, 255, nothing)
+            cv2.createTrackbar("H MAX", "HSV Value", 179, 255, nothing)
+            cv2.createTrackbar("S MAX", "HSV Value", 255, 255, nothing)
+            cv2.createTrackbar("V MAX", "HSV Value", 255, 255, nothing)
+            
+            # ratio = pixel_cm(jarak) 
+            ratio = 60   
+        # save original image 
+            cv2.imwrite('result/original.jpg',frame)
+            # cap.release()
+            # cv2.destroyAllWindows()
+        # detect image from saved image
+            path_im = 'result/original.jpg'
+            # frame = cv2.imread(path_im)
+        # do tunning segmentation calcuate luas area
+            # process = preprocessing(frame)
+            # blur = process.blur(3,1)
+            while status:
+                # path_im = 'result/original.jpg'
+                frame = cv2.imread(path_im)
+                process = preprocessing(frame)
+                blur = process.blur(3,1)
+                hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
+                h_min = cv2.getTrackbarPos("H MIN", "HSV Value")
+                s_min = cv2.getTrackbarPos("S MIN", "HSV Value")
+                v_min = cv2.getTrackbarPos("V MIN", "HSV Value")
+                h_max = cv2.getTrackbarPos("H MAX", "HSV Value")
+                s_max = cv2.getTrackbarPos("S MAX", "HSV Value")
+                v_max = cv2.getTrackbarPos("V MAX", "HSV Value")
+                
+                lower_value = np.array([h_min, s_min, v_min])
+                upper_value = np.array([h_max, s_max, v_max])
+                
+                hsv_min="MIN H:{} S:{} V:{}".format(h_min,s_min,v_min)
+                hsv_max = "MAX H:{} S:{} V:{}".format(h_max, s_max, v_max)
+                
+                mask = cv2.inRange(hsv, lower_value, upper_value)
+                result = cv2.bitwise_and(frame, frame, mask=mask)
+                dilation = cv2.dilate(result, kernel, iterations=2)
+                
+                cx,cy,luas,edge,x,y,w,h = detect(dilation)  
+                cv2.imshow('filtered',dilation)  
+                cv2.rectangle(frame,(x,y),(x+w,y+h),(255,45,0),3)                
+                if cv2.waitKey(27) & 0xFF == ord('c'):
+                    status = False
+                
+            # handle x dan y jika = 0
+            if(y>1 and x> 1):
+                crop_img = copy_frame[y:y+h, x:x+w]
+                cv2.imwrite('result/image_crop.jpg',crop_img)
+                crop_img = cv2.imread('result/image_crop.jpg')
+                
+                # cv2.imshow("Frame croping", crop_img)
+                th_img,percent = thresholding(crop_img)
+                cv2.imwrite('result/image_segmentation.jpg',th_img)
+                
+                # percent = calc_foreground_percentage(th_img)
+            # txt_percent = "percentage area : {} %".format(percent)
+            cv2.circle(frame,(cx,cy),5,(255,5,5),-1)
+            # cv2.imshow('object',img_detection)
+
+            # luas bounding box w/scale_factor dan H/scale_factor
+            luas_area = round((w/ratio)*(h/ratio),2)
+            luas_luka = round(((percent/100)*luas_area),2)
+            print(f'1cmPersegi : {luas_area} ')
+            # print(f'center point X:{cx}, Y:{cy}, Luas_BBox:{luas}, Luas_boundingBox :{luas_area}cm^2')
+            cv2.putText(frame, hsv_min, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
+            cv2.putText(frame, hsv_max, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
+            # cv2.putText(frame,txt_percent,(10,110),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            cv2.putText(frame, f'luas area BBox : {str(luas_area)} cm2', (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+            cv2.putText(frame, f'luas area luka : {str(luas_luka)} cm2', (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 1, (37, 55, 195), 2)
+
+        # saved image with calcuate 
+            # cv2.imwrite('result/image_crop.jpg',crop_img)
+            # cv2.imwrite('result/image_segmentation.jpg',th_img)
+        # saved result.txt file
+            value.append(f'luas area luka : {luas_area} cm2')
+            with open('result/result.txt', 'w') as result_txt:
+                result_txt.write(str(value))
+                
+                print('end')
+                
+                cv2.destroyAllWindows()
+                break
