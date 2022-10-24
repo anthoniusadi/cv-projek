@@ -64,7 +64,7 @@ def lidar():
 
 def pixel_cm(jarak):
     persamaan = ((0.09104895*(np.power(jarak,2))) + (-6.2577418*jarak) + 123.02010343130996)
-    print(persamaan)
+    # print(persamaan)
     return persamaan
     
 def detect(frame):
