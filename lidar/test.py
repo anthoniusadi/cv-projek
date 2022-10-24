@@ -5,11 +5,13 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN)
 # ser = serial.Serial("/dev/serial0", 115200)
 ser = serial.Serial("/dev/ttyS0", 115200)
-
+# GPIO.input(19) = 
+print(GPIO.input(19))
 def getTFminiData():
     while True:
         #time.sleep(0.1)
         count = ser.in_waiting
+        # print(count)
         if count > 8:
             if GPIO.input(19):
                 print('tombol ditekan')

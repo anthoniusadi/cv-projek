@@ -1,11 +1,16 @@
 
+import numpy as np
 import cv2
 import os
-import numpy as np
 from modules import detect, nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
 import RPi.GPIO as GPIO
+import serial 
+
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN)
+ser = serial.Serial("/dev/ttyS0", 115200)
+
 
 cap =  cv2.VideoCapture(2)
 value = []
@@ -23,6 +28,26 @@ except FileExistsError:
 def nothing(x):
     pass
 
+def lidar():
+    while True:
+        #time.sleep(0.1)
+        count = ser.in_waiting
+        # print(count)
+        if count > 8:
+            recv = ser.read(9)   
+            ser.reset_input_buffer() 
+            
+            if recv[0] == 0x59 and recv[1] == 0x59:    
+                distance = recv[2] + recv[3] * 256
+                # strength = recv[4] + recv[5] * 256
+                print(f'distance : {distance}')
+                ser.reset_input_buffer()
+                return distance
+            else:
+                print('')
+        else:
+            pass
+
 if __name__ == '__main__':
 
     while True:
@@ -37,7 +62,15 @@ if __name__ == '__main__':
         # press button (input jarak)
         # if GPIO.input(19):
         #   print('tombol ditekan)
-        if cv2.waitKey(27) & 0xFF == ord('c'):
+        if ser.is_open == False:
+            ser.open()
+
+        jarak = lidar()
+        if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
+            print('captured')
+            GPIO.cleanup()
+            ser.close()
+
             cv2.namedWindow("HSV Value")
             cv2.createTrackbar("H MIN", "HSV Value", 0, 179, nothing)
             cv2.createTrackbar("S MIN", "HSV Value", 0, 255, nothing)
@@ -46,8 +79,9 @@ if __name__ == '__main__':
             cv2.createTrackbar("S MAX", "HSV Value", 255, 255, nothing)
             cv2.createTrackbar("V MAX", "HSV Value", 255, 255, nothing)
             
-            # ratio = pixel_cm(jarak) 
-            ratio = 60   
+            ratio = pixel_cm(jarak) 
+            # ratio = 60   
+            print('ratio : ',ratio)
         # save original image 
             cv2.imwrite('result/original.jpg',frame)
             # cap.release()
