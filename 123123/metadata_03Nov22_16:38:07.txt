@@ -1,0 +1,5 @@
+Nama Pasien : sdasdas
+Umur : asdas
+No. Rekam Medis : 123123
+Nama Dokter : 213
+Nama RS : sdas

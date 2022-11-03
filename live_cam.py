@@ -47,8 +47,11 @@ def lidar():
                 print('')
         else:
             pass
-
-if __name__ == '__main__':
+def stop():
+    GPIO.cleanup()
+# if __name__ == '__main__':
+def main():
+    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max
 
     while True:
         # print('Running')
@@ -126,7 +129,7 @@ if __name__ == '__main__':
                     cv2.rectangle(frame,(x,y),(x+w,y+h),(255,45,0),3)                
                     if ((cv2.waitKey(27) & 0xFF == ord('c')) or GPIO.input(19)):
                         status = False
-                        GPIO.cleanup()
+                        # GPIO.cleanup()
 
                     
                 # handle x dan y jika = 0

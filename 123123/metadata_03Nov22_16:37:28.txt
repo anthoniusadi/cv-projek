@@ -1,0 +1,5 @@
+Nama Pasien : sad
+Umur : das
+No. Rekam Medis : 123123
+Nama Dokter : eqw
+Nama RS : weqw
