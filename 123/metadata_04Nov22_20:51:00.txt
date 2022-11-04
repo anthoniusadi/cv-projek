@@ -1,0 +1,5 @@
+Nama Pasien : dfsd
+Umur : 234
+No. Rekam Medis : 123
+Nama Dokter : asd
+Nama RS : asda

@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import os
 from mods.modules import detect,nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
+from mods.ping import *
 # from modules import detect, nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
 import RPi.GPIO as GPIO
 import serial 
@@ -16,7 +17,7 @@ ser = serial.Serial("/dev/ttyS0", 115200)
 cap =  cv2.VideoCapture(-1)
 value = []
 status = True
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((3, 3), np.uint8)
 try :
     folder = 'result'
     exist = os.path.exists(folder)
@@ -50,6 +51,20 @@ def lidar():
             pass
 def stop():
     GPIO.cleanup()
+
+def scan_depth(pin):
+    state = True
+    while (state):
+        _ , fr = cap.read()
+
+        depth = read_depth(pin)
+        cv2.putText(fr, f'depth:{str(depth)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
+        cv2.imshow('original_cam',fr)
+        if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
+            state = False
+            cv2.destroyAllWindows()
+    return depth
+
 # if __name__ == '__main__':
 def main(path,format_name):
     global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max
@@ -73,7 +88,12 @@ def main(path,format_name):
 
             if ser.is_open == False:
                 ser.open()
-
+            # scan depth
+            j1 = scan_depth(18)
+            time.sleep(2)
+            j2 = scan_depth(18)
+            time.sleep(2)
+            print(f'depth : {abs(j1-j2)}')
             jarak = lidar()
             cv2.putText(copy_frame, f'jarak:{str(jarak)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
             cv2.imshow('original_cam',copy_frame)
