@@ -1,1 +1,1 @@
-['luas area luka : 0.15 cm2', 'luas area luka : 0.15 cm2', 'luas area luka : 0.15 cm2']
+['luas area luka : 2.66 cm2']
