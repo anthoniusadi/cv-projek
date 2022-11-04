@@ -13,8 +13,8 @@ master = Tk()
 master.title('Handheld')
 master.geometry('500x200')
 
-def run():
-    live_cam.main()
+def run(folder_path,format_name):
+    live_cam.main(folder_path,format_name)
 
 def create_folder(name):
     try :
@@ -44,7 +44,8 @@ def save():
     with open(path_folder+'/'+'metadata_'+str(date_time)+'.txt','w') as f:
         f.write('\n'.join(format_file))
     messagebox.showinfo( "Save file", nama_pasien_entry.get() + ' Saved\nTekan OK untuk melanjutkan proses SCAN')
-    run()
+    format_name = f'{rekam_medis_entry.get()}_{date_time}'
+    run(rekam_medis_entry.get(),format_name)
 def clear():
     global nama_pasien,umur,rekam_medis,nama_dokter,nama_rs
     nama_pasien_entry.delete(0,END)
