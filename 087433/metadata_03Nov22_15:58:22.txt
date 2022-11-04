@@ -1,5 +1,0 @@
-Nama Pasien : nn
-Umur : 98
-No. Rekam Medis : 087433
-Nama Dokter : dsd
-Nama RS : dfdf

@@ -1,5 +1,0 @@
-Nama Pasien : nn
-Umur : 22
-No. Rekam Medis : 087433
-Nama Dokter : aksd
-Nama RS : ldsfsd

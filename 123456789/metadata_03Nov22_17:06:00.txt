@@ -1,5 +1,0 @@
-Nama Pasien : freddie
-Umur : 43
-No. Rekam Medis : 123456789
-Nama Dokter : dr.mary curie
-Nama RS : RS. Hospital

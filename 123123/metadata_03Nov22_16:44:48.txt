@@ -1,5 +1,0 @@
-Nama Pasien : sasdasd
-Umur : 21
-No. Rekam Medis : 123123
-Nama Dokter : sdasd
-Nama RS : asdasd
