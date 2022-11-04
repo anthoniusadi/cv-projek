@@ -2,10 +2,10 @@ import RPi.GPIO as GPIO
 import time
 GPIO.setmode(GPIO.BCM)
 # dibawah pin tx rx
-GPIO.setup(18,GPIO.IN)
+# GPIO.setup(18,GPIO.IN)
 def read_depth(pin):
     const = 34000
-    GPIO.setup(GPIO.OUT)
+    GPIO.setup(pin,GPIO.OUT)
     GPIO.output(pin,0)
     time.sleep(0.000002)
     GPIO.output(pin,1)
