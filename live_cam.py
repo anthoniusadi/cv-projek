@@ -4,28 +4,25 @@ import cv2
 import os
 from mods.modules import detect,nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
 from mods.ping import *
-# from modules import detect, nothing,thresholding,preprocessing,calc_foreground_percentage,pixel_cm
 import RPi.GPIO as GPIO
 import serial 
 from time import sleep
-
+# setup 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN)
 ser = serial.Serial("/dev/ttyS0", 115200)
-
-
 cap =  cv2.VideoCapture(-1)
 value = []
 status = True
 kernel = np.ones((3, 3), np.uint8)
-try :
-    folder = 'result'
-    exist = os.path.exists(folder)
-    if not exist:
-        os.makedirs(folder)
-        print('diretory created')
-except FileExistsError:
-    print('directory already exist')
+# try :
+#     folder = 'result'
+#     exist = os.path.exists(folder)
+#     if not exist:
+#         os.makedirs(folder)
+#         print('diretory created')
+# except FileExistsError:
+#     print('directory already exist')
 
 def nothing(x):
     pass
@@ -56,7 +53,6 @@ def scan_depth(pin):
     state = True
     while state:
         _ , fr = cap.read()
-
         depth = read_depth(pin)
         cv2.putText(fr, f'depth:{str(depth)} cm', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
         cv2.imshow('original_cam',fr)
@@ -65,25 +61,11 @@ def scan_depth(pin):
             # cv2.destroyAllWindows()
             return depth
 
-
 # if __name__ == '__main__':
 def main(path,format_name):
     global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max
     scan_state=1
-
     while True:
-        # print('Running')
-        # show frame original
-        # _, frame = cap.read()
-        # copy_frame = frame.copy()
-        # print('sucess')
-        # cv2.imshow('original',frame)
-        # calcuate LIDAR (jarak)
-        # jarak = lidar()
-        # print(jarak)
-        # press button (input jarak)
-        # if GPIO.input(19):
-        #   print('tombol ditekan)
         try:
             _, frame = cap.read()
             copy_frame = frame.copy()
@@ -93,7 +75,6 @@ def main(path,format_name):
                 j1 = scan_depth(18)
                 time.sleep(2)
                 print(f'j1 : {j1}')
-
                 j2 = scan_depth(18)
                 time.sleep(2)
                 print(f'j2 : {j2}')
@@ -121,20 +102,13 @@ def main(path,format_name):
                 cv2.createTrackbar("H MAX", "HSV Value", 179, 255, nothing)
                 cv2.createTrackbar("S MAX", "HSV Value", 255, 255, nothing)
                 cv2.createTrackbar("V MAX", "HSV Value", 255, 255, nothing)
-                
                 # ratio = 60   
-            # save original image 
+                # save original image 
                 cv2.imwrite(f'{path}/{format_name}_original.jpg',frame)
-                # cap.release()
-                # cv2.destroyAllWindows()
-            # detect image from saved image
+                # detect image from saved image
                 path_im = f'{path}/{format_name}_original.jpg'
-                # frame = cv2.imread(path_im)
-            # do tunning segmentation calcuate luas area
-                # process = preprocessing(frame)
-                # blur = process.blur(3,1)
+                # do tunning segmentation calcuate luas area
                 while status:
-                    # path_im = 'result/original.jpg'
                     frame = cv2.imread(path_im)
                     process = preprocessing(frame)
                     blur = process.blur(3,1)
@@ -148,7 +122,6 @@ def main(path,format_name):
                     
                     lower_value = np.array([h_min, s_min, v_min])
                     upper_value = np.array([h_max, s_max, v_max])
-                    
                     hsv_min="MIN H:{} S:{} V:{}".format(h_min,s_min,v_min)
                     hsv_max = "MAX H:{} S:{} V:{}".format(h_max, s_max, v_max)
                     
@@ -161,20 +134,15 @@ def main(path,format_name):
                     cv2.rectangle(frame,(x,y),(x+w,y+h),(255,45,0),3)                
                     if ((cv2.waitKey(27) & 0xFF == ord('c')) or GPIO.input(19)):
                         status = False
-
                         # GPIO.cleanup()
-
-                    
                 # handle x dan y jika = 0
                 if(y>1 and x> 1):
                     crop_img = copy_frame[y:y+h, x:x+w]
                     cv2.imwrite(f'{path}/{format_name}_image_crop.jpg',crop_img)
                     crop_img = cv2.imread(f'{path}/{format_name}_image_crop.jpg')
-                    
                     # cv2.imshow("Frame croping", crop_img)
                     th_img,percent = thresholding(crop_img)
                     cv2.imwrite(f'{path}/{format_name}_image_segmentation.jpg',th_img)
-                    
                     percent = calc_foreground_percentage(th_img)
                     txt_percent = "percentage area : {} %".format(percent)
                 cv2.circle(frame,(cx,cy),5,(255,5,5),-1)
@@ -190,11 +158,8 @@ def main(path,format_name):
                 # cv2.putText(frame, f'luas area BBox : {str(luas_area)} cm2', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 1)
                 cv2.putText(frame, f'luas area luka : {str(luas_luka)} cm2', (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 1)
                 cv2.putText(frame, f'P/L luka : {str(round(w/ratio,2))} cm, {str(round(h/ratio,2))} cm', (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 1)
-
-
                 cv2.imwrite(f'{path}/{format_name}_bbox.jpg',dilation)
                 cv2.imwrite(f'{path}/{format_name}_original.jpg',frame)
-
             # saved image with calcuate 
                 # cv2.imwrite('result/image_crop.jpg',crop_img)
                 # cv2.imwrite('result/image_segmentation.jpg',th_img)
@@ -202,9 +167,7 @@ def main(path,format_name):
                 value.append(f'luas area luka : {luas_area} cm2')
                 with open(f'{path}/{format_name}_result.txt', 'w') as result_txt:
                     result_txt.write(str(value))
-                    
                     print('end')
-                    
                     cv2.destroyAllWindows()
                     break
         except KeyboardInterrupt:   # Ctrl+C

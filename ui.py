@@ -84,10 +84,4 @@ b1.grid(row=5,column=0)
 b2.grid(row=5 , column=1)
 b3.grid(row=5,column=2)
 
-# nama_pasien.pack()
-# umur.pack()
-# rekam_medis.pack.pack()
-# nama_dokter.pack()
-# nama_rs.pack()
-
 mainloop()
