@@ -21,3 +21,6 @@ def read_depth(pin):
     t = end-start
     jarak = t*(const/2)
     return jarak
+# while True:
+
+#     print(read_depth(18))

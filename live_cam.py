@@ -63,7 +63,8 @@ def scan_depth(pin):
 
 # if __name__ == '__main__':
 def main(path,format_name):
-    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max
+    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent
+    percent=0
     scan_state=1
     while True:
         try:
@@ -131,7 +132,7 @@ def main(path,format_name):
                     
                     cx,cy,luas,edge,x,y,w,h = detect(dilation)  
                     cv2.imshow('original_cam',dilation)  
-                    cv2.rectangle(frame,(x,y),(x+w,y+h),(255,45,0),3)                
+                    cv2.rectangle(frame,(x,y),(x+w,y+h),(250,45,0),1)                
                     if ((cv2.waitKey(27) & 0xFF == ord('c')) or GPIO.input(19)):
                         status = False
                         # GPIO.cleanup()
@@ -165,6 +166,8 @@ def main(path,format_name):
                 # cv2.imwrite('result/image_segmentation.jpg',th_img)
             # saved result.txt file
                 value.append(f'luas area luka : {luas_area} cm2')
+                value.append(f'Kedalaman luka : {abs(j1-j2)} cm')
+
                 with open(f'{path}/{format_name}_result.txt', 'w') as result_txt:
                     result_txt.write(str(value))
                     print('end')

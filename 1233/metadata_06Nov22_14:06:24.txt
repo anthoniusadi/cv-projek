@@ -1,5 +1,0 @@
-Nama Pasien : asdas
-Umur : 12
-No. Rekam Medis : 1233
-Nama Dokter : asd
-Nama RS : asdas
