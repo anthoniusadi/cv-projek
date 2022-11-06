@@ -1,0 +1,5 @@
+Nama Pasien : asd
+Umur : 12
+No. Rekam Medis : 122
+Nama Dokter : sda
+Nama RS : asdas

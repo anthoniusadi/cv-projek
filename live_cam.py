@@ -54,20 +54,22 @@ def stop():
 
 def scan_depth(pin):
     state = True
-    while (state):
+    while state:
         _ , fr = cap.read()
 
         depth = read_depth(pin)
-        cv2.putText(fr, f'depth:{str(depth)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
+        cv2.putText(fr, f'depth:{str(depth)} cm', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
         cv2.imshow('original_cam',fr)
         if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
             state = False
-            cv2.destroyAllWindows()
-    return depth
+            # cv2.destroyAllWindows()
+            return depth
+
 
 # if __name__ == '__main__':
 def main(path,format_name):
     global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max
+    scan_state=1
 
     while True:
         # print('Running')
@@ -86,14 +88,20 @@ def main(path,format_name):
             _, frame = cap.read()
             copy_frame = frame.copy()
 
+            if scan_state<2:
+                # scan depth
+                j1 = scan_depth(18)
+                time.sleep(2)
+                print(f'j1 : {j1}')
+
+                j2 = scan_depth(18)
+                time.sleep(2)
+                print(f'j2 : {j2}')
+                print(f'depth : {abs(j1-j2)}')
+                scan_state +=1 
+            
             if ser.is_open == False:
                 ser.open()
-            # scan depth
-            j1 = scan_depth(18)
-            time.sleep(2)
-            j2 = scan_depth(18)
-            time.sleep(2)
-            print(f'depth : {abs(j1-j2)}')
             jarak = lidar()
             cv2.putText(copy_frame, f'jarak:{str(jarak)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
             cv2.imshow('original_cam',copy_frame)
