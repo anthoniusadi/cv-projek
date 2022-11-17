@@ -4,7 +4,7 @@ GPIO.setmode(GPIO.BCM)
 # dibawah pin tx rx
 # GPIO.setup(18,GPIO.IN)
 def read_depth(pin):
-    global start
+    global start,jarak,end,t
     const = 34000
     GPIO.setup(pin,GPIO.OUT)
     GPIO.output(pin,0)

@@ -1,0 +1,5 @@
+Nama Pasien : budi
+Umur : 22
+No. Rekam Medis : 081081
+Nama Dokter : Dr.imani
+Nama RS : RS. Hospital

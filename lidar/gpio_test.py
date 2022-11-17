@@ -9,15 +9,17 @@ print(GPIO.input(19))
 
 try:
     while True:
+        # sleep(1)
         if cv2.waitKey(27) & 0xFF == ord('q'):
             GPIO.cleanup()
             print('clean')
             break
         if GPIO.input(19):
             print('tombol ditekan')
+            # sleep(2)
         else:
             print('nothing')
-    sleep(0.1)
+    # sleep(10)
 finally:
     print('cleanup')
     GPIO.cleanup()

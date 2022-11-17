@@ -1,0 +1,5 @@
+Nama Pasien : ujh
+Umur : 23
+No. Rekam Medis : 23
+Nama Dokter : vbhj
+Nama RS : hjk

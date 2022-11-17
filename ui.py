@@ -43,7 +43,7 @@ def save():
     format_file.append('Nama RS : '+nama_rs_entry.get()) 
     with open(path_folder+'/'+'metadata_'+str(date_time)+'.txt','w') as f:
         f.write('\n'.join(format_file))
-    messagebox.showinfo( "Save file", nama_pasien_entry.get() + ' Saved\nTekan OK untuk melanjutkan proses SCAN')
+    # messagebox.showinfo( "Save file", nama_pasien_entry.get() + ' Saved\nTekan OK untuk melanjutkan proses SCAN')
     format_name = f'{rekam_medis_entry.get()}_{date_time}'
     run(rekam_medis_entry.get(),format_name)
 def clear():

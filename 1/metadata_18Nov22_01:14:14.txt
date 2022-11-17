@@ -1,0 +1,5 @@
+Nama Pasien : asdas
+Umur : 13
+No. Rekam Medis : 1
+Nama Dokter : dsfa
+Nama RS : sdfs

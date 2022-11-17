@@ -15,6 +15,7 @@ cap =  cv2.VideoCapture(-1)
 value = []
 status = True
 kernel = np.ones((3, 3), np.uint8)
+print('ready')
 # try :
 #     folder = 'result'
 #     exist = os.path.exists(folder)
@@ -28,6 +29,7 @@ def nothing(x):
     pass
 
 def lidar():
+    distance=0
     while True:
         #time.sleep(0.1)
         count = ser.in_waiting
@@ -35,12 +37,14 @@ def lidar():
         if count > 8:
             recv = ser.read(9)   
             ser.reset_input_buffer() 
-            
+
             if recv[0] == 0x59 and recv[1] == 0x59:    
                 distance = recv[2] + recv[3] * 256
                 # strength = recv[4] + recv[5] * 256
                 # print(f'distance : {distance}')
                 ser.reset_input_buffer()
+                return distance
+            if GPIO.input(19):
                 return distance
             else:
                 print('')
@@ -50,6 +54,7 @@ def stop():
     GPIO.cleanup()
 
 def scan_depth(pin):
+    global state
     state = True
     while state:
         _ , fr = cap.read()
@@ -68,10 +73,12 @@ def main(path,format_name):
     scan_state=1
     while True:
         try:
+            # print('cam open')
             _, frame = cap.read()
             copy_frame = frame.copy()
 
             if scan_state<2:
+                # print('depth scan')
                 # scan depth
                 j1 = scan_depth(18)
                 time.sleep(2)
@@ -84,6 +91,8 @@ def main(path,format_name):
             
             if ser.is_open == False:
                 ser.open()
+            # print('show im')
+
             jarak = lidar()
             cv2.putText(copy_frame, f'jarak:{str(jarak)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
             cv2.imshow('original_cam',copy_frame)

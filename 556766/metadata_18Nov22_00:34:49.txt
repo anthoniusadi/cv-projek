@@ -1,0 +1,5 @@
+Nama Pasien : nana
+Umur : 33
+No. Rekam Medis : 556766
+Nama Dokter : dr.Hesti
+Nama RS : Rs.Hospital

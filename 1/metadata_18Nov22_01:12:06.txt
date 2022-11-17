@@ -1,0 +1,5 @@
+Nama Pasien : wdsrs
+Umur : 234
+No. Rekam Medis : 1
+Nama Dokter : sdfw
+Nama RS : dsfsefa
