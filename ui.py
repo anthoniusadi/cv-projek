@@ -7,7 +7,7 @@ from tkinter import messagebox
 import os
 import datetime as dt
 import pytz
-import live_cam
+import live_cam_nolidar as live_cam
 
 master = Tk()
 master.title('Handheld')
@@ -32,7 +32,7 @@ def save():
 
     date_time = (x.strftime("%d%b%y_%H:%M:%S"))
     print(date_time)
-    path_folder = create_folder(rekam_medis_entry.get())
+    path_folder = create_folder(rekam_medis_entry.get())  
     format_file = []
     # global nama_dokter_entry
     print(nama_dokter_entry.get())

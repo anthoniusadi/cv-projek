@@ -1,0 +1,5 @@
+Nama Pasien : tyg
+Umur : 34
+No. Rekam Medis : sr
+Nama Dokter : qedr
+Nama RS : wrj

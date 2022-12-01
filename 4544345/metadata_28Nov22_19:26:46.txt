@@ -1,0 +1,5 @@
+Nama Pasien : df
+Umur : 4
+No. Rekam Medis : 4544345
+Nama Dokter : edf
+Nama RS : e4r34

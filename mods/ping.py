@@ -8,9 +8,13 @@ def read_depth(pin):
     const = 34000
     GPIO.setup(pin,GPIO.OUT)
     GPIO.output(pin,0)
-    time.sleep(0.000002)
+    # time.sleep(0.000002)
+    time.sleep(0.0002)
+
     GPIO.output(pin,1)
-    time.sleep(0.000005)
+    # time.sleep(0.000005)
+    time.sleep(0.0005)
+
     GPIO.output(pin,0)
     GPIO.setup(pin,GPIO.IN)
     

@@ -1,0 +1,5 @@
+Nama Pasien : tes
+Umur : 12
+No. Rekam Medis : 123
+Nama Dokter : se
+Nama RS : asda

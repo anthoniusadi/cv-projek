@@ -1,0 +1,5 @@
+Nama Pasien : qwe
+Umur : 22
+No. Rekam Medis : 123123111111
+Nama Dokter : asd
+Nama RS : asdassd

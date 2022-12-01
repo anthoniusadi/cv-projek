@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN)
 
-cap =  cv2.VideoCapture(-1)
+cap =  cv2.VideoCapture(0)
 
 while True:
 

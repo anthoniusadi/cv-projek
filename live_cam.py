@@ -37,7 +37,7 @@ def lidar():
         if count > 8:
             recv = ser.read(9)   
             ser.reset_input_buffer() 
-
+            sleep(0.4)
             if recv[0] == 0x59 and recv[1] == 0x59:    
                 distance = recv[2] + recv[3] * 256
                 # strength = recv[4] + recv[5] * 256
@@ -58,6 +58,7 @@ def scan_depth(pin):
     state = True
     while state:
         _ , fr = cap.read()
+        sleep(1)
         depth = read_depth(pin)
         cv2.putText(fr, f'depth:{str(depth)} cm', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
         cv2.imshow('original_cam',fr)
@@ -81,10 +82,10 @@ def main(path,format_name):
                 # print('depth scan')
                 # scan depth
                 j1 = scan_depth(18)
-                time.sleep(2)
+                time.sleep(1)
                 print(f'j1 : {j1}')
                 j2 = scan_depth(18)
-                time.sleep(2)
+                time.sleep(1)
                 print(f'j2 : {j2}')
                 print(f'depth : {abs(j1-j2)}')
                 scan_state +=1 
