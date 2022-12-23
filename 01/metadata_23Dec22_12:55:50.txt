@@ -1,0 +1,6 @@
+Nama Pasien : rani
+Gender : P
+Umur : 23
+No. Rekam Medis : 01
+Nama Dokter : sd
+Nama RS : sdf

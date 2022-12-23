@@ -1,0 +1,6 @@
+Nama Pasien : rani
+Gender : P
+Umur : 23
+No. Rekam Medis : 011
+Nama Dokter : dsf
+Nama RS : swrf

@@ -52,6 +52,8 @@ def lidar():
             pass
 def stop():
     GPIO.cleanup()
+    if ser != None:
+        ser.close()
 
 def scan_depth(pin):
     global state
@@ -94,8 +96,9 @@ def main(path,format_name):
                 scan_state +=1 
         
 
-            jarak = lidar()
-            cv2.putText(copy_frame, f'jarak:{str(jarak)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
+            # jarak = lidar()
+            jarak=j2+2.37
+            cv2.putText(copy_frame, f'jarak:{str(j1)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
             cv2.imshow('original_cam',copy_frame)
 
             if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
@@ -177,6 +180,8 @@ def main(path,format_name):
             # saved result.txt file
                 value.append(f'luas area luka : {luas_area} cm2')
                 value.append(f'Kedalaman luka : {abs(j1-j2)} cm')
+                value.append(f'jarak : {j1} cm')
+                value.append(f'jarak lidar : {jarak} cm')
 
                 with open(f'{path}/{format_name}_result.txt', 'w') as result_txt:
                     result_txt.write(str(value))

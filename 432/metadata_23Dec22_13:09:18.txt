@@ -1,0 +1,6 @@
+Nama Pasien : tini
+Gender : P
+Umur : 44
+No. Rekam Medis : 432
+Nama Dokter : wser
+Nama RS : sdfwe
