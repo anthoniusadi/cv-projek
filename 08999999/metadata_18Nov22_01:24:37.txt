@@ -1,5 +1,0 @@
-Nama Pasien : fadil
-Umur : 22
-No. Rekam Medis : 08999999
-Nama Dokter : dr. ina
-Nama RS : rs UGM

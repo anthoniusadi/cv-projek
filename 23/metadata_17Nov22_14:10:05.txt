@@ -1,5 +1,0 @@
-Nama Pasien : drfg
-Umur : 22
-No. Rekam Medis : 23
-Nama Dokter : FG
-Nama RS : FGLdkhy

@@ -1,0 +1,5 @@
+Nama Pasien : sdf
+Umur : 23
+No. Rekam Medis : 323
+Nama Dokter : SF
+Nama RS : DSFS

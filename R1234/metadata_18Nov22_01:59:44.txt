@@ -1,5 +1,0 @@
-Nama Pasien : rizal
-Umur : 20
-No. Rekam Medis : R1234
-Nama Dokter : RS. Fadhil
-Nama RS : RS UGM

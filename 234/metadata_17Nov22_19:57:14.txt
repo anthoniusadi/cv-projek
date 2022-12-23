@@ -1,5 +1,0 @@
-Nama Pasien : ghfd
-Umur : 34
-No. Rekam Medis : 234
-Nama Dokter : sdf
-Nama RS : ert

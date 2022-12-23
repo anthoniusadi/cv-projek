@@ -1,5 +1,0 @@
-Nama Pasien : lk,
-Umur : 2
-No. Rekam Medis : 23
-Nama Dokter : sed
-Nama RS : dl

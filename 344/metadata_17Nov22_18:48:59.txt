@@ -1,5 +1,0 @@
-Nama Pasien : nnnn
-Umur : 23
-No. Rekam Medis : 344
-Nama Dokter : FGDFGD
-Nama RS : Sadff

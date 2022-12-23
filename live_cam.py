@@ -37,7 +37,7 @@ def lidar():
         if count > 8:
             recv = ser.read(9)   
             ser.reset_input_buffer() 
-            sleep(0.4)
+            sleep(0.1)
             if recv[0] == 0x59 and recv[1] == 0x59:    
                 distance = recv[2] + recv[3] * 256
                 # strength = recv[4] + recv[5] * 256
@@ -58,7 +58,7 @@ def scan_depth(pin):
     state = True
     while state:
         _ , fr = cap.read()
-        sleep(1)
+        sleep(0.1)
         depth = read_depth(pin)
         cv2.putText(fr, f'depth:{str(depth)} cm', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
         cv2.imshow('original_cam',fr)
@@ -69,7 +69,10 @@ def scan_depth(pin):
 
 # if __name__ == '__main__':
 def main(path,format_name):
-    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent
+        
+    if ser.is_open == False:
+        ser.open()
+    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent,dilation
     percent=0
     scan_state=1
     while True:
@@ -82,17 +85,14 @@ def main(path,format_name):
                 # print('depth scan')
                 # scan depth
                 j1 = scan_depth(18)
-                time.sleep(1)
+                time.sleep(0.2)
                 print(f'j1 : {j1}')
                 j2 = scan_depth(18)
-                time.sleep(1)
+                time.sleep(0.2)
                 print(f'j2 : {j2}')
                 print(f'depth : {abs(j1-j2)}')
                 scan_state +=1 
-            
-            if ser.is_open == False:
-                ser.open()
-            # print('show im')
+        
 
             jarak = lidar()
             cv2.putText(copy_frame, f'jarak:{str(jarak)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)

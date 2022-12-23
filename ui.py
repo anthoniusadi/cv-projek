@@ -7,8 +7,9 @@ from tkinter import messagebox
 import os
 import datetime as dt
 import pytz
-import live_cam_nolidar as live_cam
-
+# import live_cam_nolidar as live_cam
+import live_cam
+# 
 master = Tk()
 master.title('Handheld')
 master.geometry('500x200')

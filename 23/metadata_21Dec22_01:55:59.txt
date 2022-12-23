@@ -1,0 +1,5 @@
+Nama Pasien : sd
+Umur : 23
+No. Rekam Medis : 23
+Nama Dokter : asdfq
+Nama RS : wedfwe

@@ -1,5 +1,0 @@
-Nama Pasien : nana
-Umur : 24
-No. Rekam Medis : 13131414
-Nama Dokter : dr.Ani
-Nama RS : Rs. Hospital

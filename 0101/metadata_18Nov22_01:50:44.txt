@@ -1,5 +1,0 @@
-Nama Pasien : fadhil
-Umur : 20
-No. Rekam Medis : 0101
-Nama Dokter : dr. ani
-Nama RS : RS UGM

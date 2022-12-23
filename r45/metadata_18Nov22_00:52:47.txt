@@ -1,5 +1,0 @@
-Nama Pasien : contoh2
-Umur : 45
-No. Rekam Medis : r45
-Nama Dokter : dr.Nana
-Nama RS : Rs. Hospital

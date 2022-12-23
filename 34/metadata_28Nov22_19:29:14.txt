@@ -1,5 +1,0 @@
-Nama Pasien : dfg
-Umur : 33
-No. Rekam Medis : 34
-Nama Dokter : wersdf
-Nama RS : qsdfg25

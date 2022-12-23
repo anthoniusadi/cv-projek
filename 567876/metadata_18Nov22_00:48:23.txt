@@ -1,5 +1,0 @@
-Nama Pasien : nana
-Umur : 50
-No. Rekam Medis : 567876
-Nama Dokter : dr. Any
-Nama RS : Rs. Hospital

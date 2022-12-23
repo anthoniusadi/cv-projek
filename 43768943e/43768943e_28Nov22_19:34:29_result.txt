@@ -1,1 +1,0 @@
-['luas area luka : 1.19 cm2', 'Kedalaman luka : 0.8835792541503906 cm']
