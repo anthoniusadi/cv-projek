@@ -1,6 +1,0 @@
-Nama Pasien : rio
-Gender : L
-Umur : 22
-No. Rekam Medis : 012
-Nama Dokter : kjsj
-Nama RS : rs.harapan kita

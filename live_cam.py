@@ -11,9 +11,9 @@ from time import sleep
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(19,GPIO.IN)
 ser = serial.Serial("/dev/ttyS0", 115200)
+if ser.is_open == False:
+    ser.open()
 cap =  cv2.VideoCapture(-1)
-value = []
-status = True
 kernel = np.ones((3, 3), np.uint8)
 print('ready')
 # try :
@@ -43,7 +43,8 @@ def lidar():
                 # strength = recv[4] + recv[5] * 256
                 # print(f'distance : {distance}')
                 ser.reset_input_buffer()
-                return distance
+                if (distance > 0) and (distance<200):
+                    return distance
             if GPIO.input(19):
                 return distance
             else:
@@ -58,6 +59,7 @@ def stop():
 def scan_depth(pin):
     global state
     state = True
+    sensor_lidar = lidar()
     while state:
         _ , fr = cap.read()
         sleep(0.1)
@@ -67,14 +69,16 @@ def scan_depth(pin):
         if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
             state = False
             # cv2.destroyAllWindows()
-            return depth
+            return depth,sensor_lidar
 
 # if __name__ == '__main__':
 def main(path,format_name):
-        
+    value = []
+    status = True
+    
     if ser.is_open == False:
         ser.open()
-    global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent,dilation
+    global y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent,dilation
     percent=0
     scan_state=1
     while True:
@@ -86,10 +90,10 @@ def main(path,format_name):
             if scan_state<2:
                 # print('depth scan')
                 # scan depth
-                j1 = scan_depth(18)
+                j1,sensor_lidar = scan_depth(18)
                 time.sleep(0.2)
                 print(f'j1 : {j1}')
-                j2 = scan_depth(18)
+                j2,_ = scan_depth(18)
                 time.sleep(0.2)
                 print(f'j2 : {j2}')
                 print(f'depth : {abs(j1-j2)}')
@@ -97,12 +101,12 @@ def main(path,format_name):
         
 
             # jarak = lidar()
-            jarak=j2+2.37
+            jarak=sensor_lidar
             cv2.putText(copy_frame, f'jarak:{str(j1)} cm', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255),1)
             cv2.imshow('original_cam',copy_frame)
 
             if (cv2.waitKey(27) & 0xFF == ord('c') or GPIO.input(19)):
-                ratio = pixel_cm(jarak) 
+                ratio = pixel_cm(j1) 
                 print(f'captured, jarak {jarak}, ratio {ratio}px/cm')
                 ser.close()
                 for i in range(8):
@@ -118,6 +122,7 @@ def main(path,format_name):
                 cv2.createTrackbar("V MAX", "HSV Value", 255, 255, nothing)
                 # ratio = 60   
                 # save original image 
+                cv2.imwrite(f'{path}/{format_name}_polos.jpg',copy_frame)
                 cv2.imwrite(f'{path}/{format_name}_original.jpg',frame)
                 # detect image from saved image
                 path_im = f'{path}/{format_name}_original.jpg'
@@ -164,7 +169,9 @@ def main(path,format_name):
                 # luas bounding box w/scale_factor dan H/scale_factor
                 luas_area = round((w/ratio)*(h/ratio),2)
                 luas_luka = round(((percent)*luas_area),4)
-                print(f'1cmPersegi : {luas_area} ')
+                print(f'luas Bbox : {luas_area} ')
+                print(f'luas Luka : {luas_luka} ')
+
                 # print(f'center point X:{cx}, Y:{cy}, Luas_BBox:{luas}, Luas_boundingBox :{luas_area}cm^2')
                 # cv2.putText(frame, hsv_min, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
                 # cv2.putText(frame, hsv_max, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 1)
@@ -180,7 +187,9 @@ def main(path,format_name):
             # saved result.txt file
                 value.append(f'luas area luka : {luas_area} cm2')
                 value.append(f'Kedalaman luka : {abs(j1-j2)} cm')
-                value.append(f'jarak : {j1} cm')
+                value.append(f'jarak 1: {j1} cm')
+                value.append(f'jarak 2: {j2} cm')
+
                 value.append(f'jarak lidar : {jarak} cm')
 
                 with open(f'{path}/{format_name}_result.txt', 'w') as result_txt:

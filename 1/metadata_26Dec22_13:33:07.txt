@@ -1,0 +1,6 @@
+Nama Pasien : satu
+Gender : L
+Umur : 12
+No. Rekam Medis : 1
+Nama Dokter : sdfs
+Nama RS : sedwer

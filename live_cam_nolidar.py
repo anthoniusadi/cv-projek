@@ -14,7 +14,6 @@ GPIO.setup(19,GPIO.IN)
 j1=0
 j2=0
 cap =  cv2.VideoCapture(0)
-value = []
 status = True
 kernel = np.ones((3, 3), np.uint8)
 print('ready')
@@ -52,6 +51,8 @@ def scan_depth(pin):
 def main(path,format_name):
     global status,y,x,h,w,cx,cx,cy,hsv_min,hsv_max,percent,dilation
     percent=0
+    value = []
+
     scan_state=1
     while True:
         try:

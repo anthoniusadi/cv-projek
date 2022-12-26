@@ -1,6 +1,0 @@
-Nama Pasien : riri
-Gender : P
-Umur : 23
-No. Rekam Medis : 1111
-Nama Dokter : erwe
-Nama RS : wwwww

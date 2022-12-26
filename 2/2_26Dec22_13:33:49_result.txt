@@ -1,0 +1,1 @@
+['luas area luka : 1.13 cm2', 'Kedalaman luka : 0.6120204925537109 cm', 'jarak 1: 12.548446655273438 cm', 'jarak 2: 11.936426162719727 cm', 'jarak lidar : 5 cm']

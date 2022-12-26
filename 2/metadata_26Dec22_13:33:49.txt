@@ -1,0 +1,6 @@
+Nama Pasien : dua
+Gender : P
+Umur : 21
+No. Rekam Medis : 2
+Nama Dokter : asd
+Nama RS : wwwwdde

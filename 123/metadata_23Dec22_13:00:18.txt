@@ -1,6 +1,0 @@
-Nama Pasien : rina
-Gender : P
-Umur : 22
-No. Rekam Medis : 123
-Nama Dokter : wae
-Nama RS : sedr

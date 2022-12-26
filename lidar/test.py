@@ -10,7 +10,7 @@ print(GPIO.input(19))
 def getTFminiData():
     while True:
         # sleep(0.4)
-        #time.sleep(0.1)
+        sleep(0.1)
         count = ser.in_waiting
         # print(count)
         if count > 8:
@@ -37,9 +37,9 @@ def getTFminiData():
 
 if __name__ == '__main__':
     print('run!')
+    if ser.is_open == False:
+        ser.open()
     try:
-        if ser.is_open == False:
-            ser.open()
 
             
         getTFminiData()

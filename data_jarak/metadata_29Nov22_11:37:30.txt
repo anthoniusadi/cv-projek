@@ -1,5 +1,0 @@
-Nama Pasien : data1
-Umur : 1
-No. Rekam Medis : data_jarak
-Nama Dokter : a
-Nama RS : a
