@@ -1,0 +1,6 @@
+Nama Pasien : bambang
+Gender : l
+Umur : 80
+No. Rekam Medis : 787878
+Nama Dokter : dadang
+Nama RS : janti bahagia
