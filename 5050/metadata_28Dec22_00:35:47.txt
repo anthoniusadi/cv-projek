@@ -1,0 +1,6 @@
+Nama Pasien : testing4
+Gender : a
+Umur : 34
+No. Rekam Medis : 5050
+Nama Dokter : ed
+Nama RS : ytfvtu

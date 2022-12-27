@@ -1,0 +1,6 @@
+Nama Pasien : testing4
+Gender : P
+Umur : 432
+No. Rekam Medis : 2020
+Nama Dokter : d
+Nama RS : sdfee

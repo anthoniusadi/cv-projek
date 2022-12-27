@@ -1,0 +1,6 @@
+Nama Pasien : tes2
+Gender : P
+Umur : 212
+No. Rekam Medis : 1212
+Nama Dokter : wew
+Nama RS : sedrfwsefdwe

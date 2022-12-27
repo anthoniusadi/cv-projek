@@ -1,0 +1,6 @@
+Nama Pasien : testing3
+Gender : w
+Umur : 23
+No. Rekam Medis : 1010
+Nama Dokter : ASFD
+Nama RS : sdefsfdgi

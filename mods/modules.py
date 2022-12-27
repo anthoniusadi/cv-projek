@@ -66,6 +66,8 @@ def pixel_cm(jarak):
     # harus di update lagi
     persamaan = ((0.09104895*(np.power(jarak,2))) + (-6.2577418*jarak) + 123.02010343130996)
     # print(persamaan)
+    persamaan = ((-0.00470028620*(np.power(jarak,3)))+(0.436014392*(np.power(jarak,2))) + (-14.1647011*jarak) + 188.21307559)
+
     return persamaan
     
 def detect(frame):

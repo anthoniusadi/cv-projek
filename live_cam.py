@@ -185,7 +185,7 @@ def main(path,format_name):
                 # cv2.imwrite('result/image_crop.jpg',crop_img)
                 # cv2.imwrite('result/image_segmentation.jpg',th_img)
             # saved result.txt file
-                value.append(f'luas area luka : {luas_area} cm2')
+                value.append(f'luas area luka : {luas_luka} cm2')
                 value.append(f'Kedalaman luka : {abs(j1-j2)} cm')
                 value.append(f'jarak 1: {j1} cm')
                 value.append(f'jarak 2: {j2} cm')

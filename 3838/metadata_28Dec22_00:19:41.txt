@@ -1,0 +1,6 @@
+Nama Pasien : testing1
+Gender : P
+Umur : 22
+No. Rekam Medis : 3838
+Nama Dokter : weqe
+Nama RS : fdgerger
